@@ -9,7 +9,7 @@
     <router-link
       v-for="{ id, fields } in locations.data"
       :key="id"
-      :to="{ name: 'Location', params: { sitecoreItemId: fields.GUID } }"
+      :to="{ name: 'Location', params: { UID: fields.UID } }"
       class="list-group-item list-group-item-action"
     >
       {{ fields.name }}
@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import { locations, fetchLocations } from '../lib/locations'
+import { locations, fetchLocations } from "../lib/locations";
 
 export default {
   setup() {
-    fetchLocations()
-    return { locations }
+    fetchLocations();
+    return { locations };
   },
-}
+};
 </script>

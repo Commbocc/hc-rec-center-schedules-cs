@@ -1,35 +1,35 @@
-import { reactive, computed } from 'vue'
-import airtable from './airtable'
-import _groupBy from 'lodash.groupby'
+import { reactive, computed } from "vue";
+import airtable from "./airtable";
+import _groupBy from "lodash.groupby";
 
 export const programs = reactive({
-  error: '',
+  error: "",
   loading: false,
   data: [],
-})
+});
 
 export const groupedPrograms = computed(() =>
-  _groupBy(programs.data, 'fields.group')
-)
+  _groupBy(programs.data, "fields.group"),
+);
 
-export async function fetchPrograms(sitecoreItemId) {
-  programs.loading = true
+export async function fetchPrograms(UID) {
+  programs.loading = true;
   try {
     const { data } = await airtable.get(`/programs`, {
       params: {
-        filterByFormula: `AND({published}, {group} != '', '${sitecoreItemId}' = ARRAYJOIN({locationGUID}), OR({endDate} >= TODAY(), {endDate} = ''))`,
-        view: 'Grid view',
+        filterByFormula: `AND({published}, {group} != '', '${UID}' = ARRAYJOIN({locationUID}), OR({endDate} >= TODAY(), {endDate} = ''))`,
+        view: "Grid view",
       },
-    })
+    });
 
-    programs.data = data.records
+    programs.data = data.records;
   } catch (error) {
     // error
     // 401 unauth
     // 422 (Unprocessable Entity)
 
-    programs.error = error.message
+    programs.error = error.message;
   } finally {
-    programs.loading = false
+    programs.loading = false;
   }
 }

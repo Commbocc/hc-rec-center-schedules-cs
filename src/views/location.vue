@@ -26,21 +26,21 @@
 </template>
 
 <script>
-import { programs, fetchPrograms, groupedPrograms } from '../lib/programs'
-import Group from '../components/Group.vue'
-import Activity from '../components/Activity.vue'
+import { programs, fetchPrograms, groupedPrograms } from "../lib/programs";
+import Group from "../components/Group.vue";
+import Activity from "../components/Activity.vue";
 
 export default {
   props: {
-    sitecoreItemId: String,
+    UID: String,
   },
 
   components: { Group, Activity },
 
   setup(props) {
-    fetchPrograms(props.sitecoreItemId)
+    fetchPrograms(props.UID);
 
-    return { programs, groupedPrograms }
+    return { programs, groupedPrograms };
   },
-}
+};
 </script>
